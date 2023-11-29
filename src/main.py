@@ -3,9 +3,14 @@ from starlette.middleware.cors import CORSMiddleware
 from src.llm_service import TemplateLLM
 from src.prompts import ProjectParams
 from src.parsers import ProjectIdeas
+from src.config import get_settings
 
+_SETTINGS = get_settings()
 
-app = FastAPI()
+app = FastAPI(
+    title = _SETTINGS.service_name,
+    version = _SETTINGS.k_revision
+)
 
 app.add_middleware(
     CORSMiddleware,
